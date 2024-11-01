@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { MenuType } from '@/constants/menutype-enum';
-import MenuDto from '@/models/menu-dto';
-import MenuService from '@/services/menu-service';
-import Button from 'primevue/button';
 import { onMounted, ref } from 'vue';
-import ApiParams from '@/models/apiParams';
-import InputNumber from 'primevue/inputnumber';
+import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
 import Dropdown from 'primevue/dropdown';
+
+import { MenuType } from '@/constants/menutype-enum';
+
+import MenuService from '@/services/menu-service';
+
+import MenuDto from '@/models/menu-dto';
+import ApiParams from '@/models/apiParams';
 
 const props = defineProps(["item"]);
 const emit = defineEmits(["closeForm"]);
@@ -23,7 +26,6 @@ const submitForm = async () => {
     if (!!props.item) {
 
         const response = await menuService.update(mapMenuDtoToApiParams(menu.value))
-        console.log(response);
         emit("closeForm");
     } else {
         const apiData = mapMenuDtoToApiParams(menu.value);

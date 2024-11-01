@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
-import { onMounted, ref } from 'vue';
-import MenuDto from '@/models/menu-dto';
-import MenuService from '@/services/menu-service';
-import { MenuType } from '@/constants/menutype-enum';
-import ApiParams from '@/models/apiParams';
 import Column from 'primevue/column';
 import Checkbox from 'primevue/checkbox';
-import MenuForm from './components/MenuForm.vue';
 import Dialog from 'primevue/dialog';
+
+import MenuForm from './components/MenuForm.vue';
+
+import MenuService from '@/services/menu-service';
+
+import MenuDto from '@/models/menu-dto';
+import ApiParams from '@/models/apiParams';
 
 const menuService = new MenuService();
 
@@ -19,41 +21,26 @@ const itemSelected = ref();
 const itemToEdit = ref();
 const showMenuFormDialog = ref(false)
 
-const verTodos = ref<Boolean>(false)
+const verTodos = ref(false)
 
 
 const getMenuList = async () => {
     const response = await menuService.getList();
-    menuList.value = response.map((item: ApiParams) => {
+    const menuFullList: MenuDto[] = response.map((item: ApiParams) => {
         return {
             idcod: item.idcod,
             description: item.param1,
             price: parseFloat(item.param2!),
-            type: item.param3 as MenuType,
+            type: item.param3,
             avaiable: item.param4 === "disponible"
-        } as MenuDto;
+        }
     });
 
-    menuList.value = verTodos.value ? menuList.value : menuList.value.filter(item => item.avaiable);
-
-    console.log("menuList", menuList.value);
+    menuList.value = verTodos.value
+        ? menuFullList
+        : menuFullList.filter(x => x.avaiable);
 
 }
-const createMenu = () => {
-    toggleMenuForm();
-    // const data: MenuDto = {
-    //     description: "Milanesas con puré",
-    //     price: 4500,
-    //     type: MenuType.Clasico,
-    //     avaiable: true,
-    // }
-
-    // const apiData = mapMenuDtoToApiParams(data);
-
-    // const response = await menuService.create(apiData)
-    // console.log("create menu", response);
-    // await getMenuList();
-};
 
 const editMenu = () => {
     itemToEdit.value = itemSelected.value;
@@ -77,7 +64,6 @@ const deleteMenu = async () => {
         }
     }
     const response = await menuService.delete(data)
-    console.log("delete menu", response)
     await getMenuList();
 }
 
@@ -110,7 +96,7 @@ onMounted(async () => {
             <Toolbar class="toolbar">
                 <template #start>
                     <Button label="Crear" icon="pi pi-plus-circle" class="p-button-success"
-                        v-on:click="createMenu()"></Button>
+                        v-on:click="toggleMenuForm()"></Button>
                     <Button label="Editar" icon="pi pi-pencil" class="p-button ml-2" v-on:click="editMenu()"
                         v-bind:disabled="!itemSelected"></Button>
                     <Button label="Eliminar" icon="pi pi-trash" class="p-button-danger ml-2" @click="deleteMenu()"

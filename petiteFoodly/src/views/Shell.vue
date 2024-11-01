@@ -14,12 +14,12 @@ const items = ref([
     {
         data: "/order",
         label: "Ordenes",
-        icon: "pi pi-home"
+        icon: "pi pi-shopping-cart"
     },
     {
         data: "/menu",
         label: "Menus",
-        icon: "pi pi-home"
+        icon: "pi pi-receipt"
     },
 ]);
 

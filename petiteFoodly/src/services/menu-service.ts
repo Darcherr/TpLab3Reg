@@ -6,6 +6,11 @@ export default class MenuService {
     return response.data
   }
 
+  async get(data: any) {
+    const response = await client.get(`menu/${data}`)
+    return response.data
+  }
+
   async create(data: any) {
     const response = await client.post('menu', data)
     return response.data
@@ -17,7 +22,6 @@ export default class MenuService {
   }
 
   async delete(data: any) {
-    console.log('delete service', data)
     const response = await client.delete('menu', data)
     return response.data
   }
