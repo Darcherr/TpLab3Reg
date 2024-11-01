@@ -1,0 +1,64 @@
+@import "primevue/resources/themes/md-light-indigo/theme.css";
+@import "primevue/resources/primevue.min.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color:#f3efef;
+}
+
+*{
+  font-size: 13px;
+}
+
+.button-row > button:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+pre {
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.toolbar {
+  background: #f5f5f5 !important;
+  border: 1px solid #d3d3d3 !important;
+}
+
+
+.toolbar-fix {
+  position: sticky;
+  top: 10px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.p-inputswitch .p-inputswitch-slider {
+  background: rgba(0, 0, 0, 0.38);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
+  border-radius: 0.5rem;
+  outline-color: transparent;
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider:before {
+  background: #ffffff;
+  transform: translateX(1.5rem);
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider{
+background:#e30613
+}
+
+
+.p-card-content {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+}
+
+.p-card-footer {
+  padding: 0rem;
+}
